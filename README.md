@@ -38,6 +38,10 @@ This project implements an end-to-end RAG pipeline for document question answeri
 4. User queries are embedded and matched semantically  
 5. Relevant document context is retrieved  
 6. A local LLM generates a response using the retrieved context  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9498fa38-d58f-40db-954e-488fd030d030" width="400" />
+</p>
+
 
 ---
 
