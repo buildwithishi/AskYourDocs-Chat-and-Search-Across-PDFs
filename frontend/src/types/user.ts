@@ -1,0 +1,12 @@
+export interface User {
+  id: string
+  name: string
+  email: string
+  avatarUrl?: string
+  plan: 'starter' | 'professional' | 'enterprise'
+}
+
+export interface AuthSession {
+  user: User
+  token: string
+}

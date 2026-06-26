@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AskYourDocs AI | Intelligent Document Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#131317",
+                    "surface-dim": "#131317",
+                    "surface-container-highest": "#353439",
+                    "tertiary-fixed": "#d5e3fd",
+                    "inverse-on-surface": "#303034",
+                    "on-primary": "#2f3131",
+                    "on-secondary": "#233143",
+                    "on-error": "#690005",
+                    "background": "#131317",
+                    "surface-container-lowest": "#0e0e12",
+                    "on-primary-fixed": "#1a1c1c",
+                    "on-surface-variant": "#c4c7c8",
+                    "on-tertiary-fixed": "#0d1c2f",
+                    "on-secondary-container": "#a7b6cc",
+                    "on-secondary-fixed": "#0d1c2d",
+                    "inverse-primary": "#5d5f5f",
+                    "on-surface": "#e4e1e7",
+                    "on-tertiary-fixed-variant": "#3a485c",
+                    "secondary-fixed": "#d4e4fa",
+                    "surface-tint": "#c6c6c7",
+                    "tertiary": "#ffffff",
+                    "surface-container": "#1f1f23",
+                    "tertiary-fixed-dim": "#b9c7e0",
+                    "inverse-surface": "#e4e1e7",
+                    "error": "#ffb4ab",
+                    "secondary-container": "#39485a",
+                    "secondary": "#b9c8de",
+                    "on-tertiary-container": "#57657b",
+                    "surface-container-high": "#2a292e",
+                    "error-container": "#93000a",
+                    "surface-variant": "#353439",
+                    "primary-container": "#e2e2e2",
+                    "primary-fixed": "#e2e2e2",
+                    "on-background": "#e4e1e7",
+                    "outline-variant": "#444748",
+                    "secondary-fixed-dim": "#b9c8de",
+                    "on-error-container": "#ffdad6",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "outline": "#8e9192",
+                    "on-tertiary": "#233144",
+                    "surface-bright": "#39393d",
+                    "primary": "#ffffff",
+                    "tertiary-container": "#d5e3fd",
+                    "on-secondary-fixed-variant": "#39485a",
+                    "surface-container-low": "#1b1b1f",
+                    "on-primary-fixed-variant": "#454747",
+                    "on-primary-container": "#636565"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "unit": "4px",
+                    "stack-gap-md": "16px",
+                    "stack-gap-lg": "32px",
+                    "container-max-width": "1440px",
+                    "stack-gap-sm": "8px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "label-md": ["Geist"],
+                    "display-xl-mobile": ["Plus Jakarta Sans"],
+                    "code-sm": ["Geist"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-xl": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-xl-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "code-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.03);
+            transform: translateY(-4px);
+        }
+        .hero-text-glow {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+        }
+        body {
+            background-color: #0B0B0F;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/20 selection:text-primary overflow-x-hidden">
+<!-- Global Background Shader -->
+<div class="fixed inset-0 z-0 pointer-events-none opacity-40">
+<!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+// Simplex 2D noise
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 a0 = x - floor(x + 0.5);
+  float m1 = 1.79284291400159 - 0.85373472095314 * ( a0.x*a0.x + h.x*h.x );
+  float m2 = 1.79284291400159 - 0.85373472095314 * ( a0.y*a0.y + h.y*h.y );
+  float m3 = 1.79284291400159 - 0.85373472095314 * ( a0.z*a0.z + h.z*h.z );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Deep charcoal base
+    vec3 color = vec3(0.043, 0.043, 0.059); // #0B0B0F
+    
+    // Liquid light streaks
+    float n1 = snoise(uv * 2.0 + u_time * 0.1);
+    float n2 = snoise(uv * 4.0 - u_time * 0.05);
+    
+    float smoke = smoothstep(0.4, 0.6, n1 * n2 + 0.5);
+    
+    // Soft silver highlights
+    vec3 lightColor = vec3(0.7, 0.7, 0.8);
+    color = mix(color, color + lightColor * 0.05, smoke);
+    
+    // Subtle flowing gradient
+    float g = snoise(uv * 0.5 + u_time * 0.02);
+    color += vec3(0.05, 0.06, 0.08) * g;
+    
+    // Vignette
+    float d = distance(uv, vec2(0.5));
+    color *= smoothstep(1.2, 0.5, d);
+
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+</div>
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-surface/80 border-b border-white/5 shadow-[0_0_20px_rgba(255,255,255,0.03)] flex justify-between items-center px-margin-desktop py-4">
+<div class="flex items-center gap-gutter">
+<a class="font-headline-md text-headline-md font-bold text-primary tracking-tight" href="#">AskYourDocs</a>
+<nav class="hidden md:flex items-center gap-stack-gap-md ml-stack-gap-lg">
+<a class="font-label-md text-label-md text-primary font-bold transition-colors" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-white/5 px-3 py-1.5 rounded-lg transition-colors" href="#">Features</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-white/5 px-3 py-1.5 rounded-lg transition-colors" href="#">Enterprise</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-gap-md">
+<div class="hidden sm:flex items-center bg-white/5 border border-white/5 rounded-full px-4 py-2 gap-2 focus-within:border-primary/20 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none outline-none text-label-md font-label-md text-on-surface placeholder:text-on-surface-variant/50 w-32 focus:ring-0" placeholder="Search docs..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-white/5 p-2 rounded-lg transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-white/5 p-2 rounded-lg transition-colors">settings</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-white/10 active:scale-95 transition-transform cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional close-up studio portrait of a technology executive with a neutral expression, soft rim lighting, high-end photography style, deep charcoal background, clean and professional aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtL0-D9E01vZbaPj-8SfcnCiVObC1uJus8vldIBvV6FZ41f9Xs7YbEacpAG-DuXL921u67AqS3ayyj7ANK6Nc17juoqBUxnNYFUhUCBQOBG51Q5fNWFqUh4qgzcICtMYTy2xXC5ghlnoEir2-nYHgkJ0VzldBYarvCJ7g5iRN0mv-y5nkAzqnJ0GsUTWNE0POArErcjJ8vZMCE9TiwnnrsK98NkPQUZm6b-EuTr-fm21WDWLtq-LeuPYQF4sjsGWShz4eSXpkgkbMi"/>
+</div>
+</div>
+</header>
+<main class="relative z-10 pt-32">
+<!-- Hero Section -->
+<section class="min-h-[819px] flex flex-col items-center justify-center text-center px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-stack-gap-lg backdrop-blur-md">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-label-md text-[12px] uppercase tracking-widest text-on-surface-variant">V2.0 is now live</span>
+</div>
+<h1 class="font-display-xl text-display-xl-mobile md:text-display-xl text-primary max-w-4xl hero-text-glow leading-tight mb-stack-gap-md">
+                Your Documents, <br class="hidden md:block"/> Now Intelligent.
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-stack-gap-lg leading-relaxed">
+                Connect your workspace to a specialized AI that understands your specific data. Query, analyze, and cite with enterprise-grade precision and absolute privacy.
+            </p>
+<div class="flex flex-col sm:flex-row gap-stack-gap-md">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md font-bold btn-glow transition-all active:scale-95 flex items-center gap-2">
+                    Start Analyzing <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="bg-white/5 border border-white/10 backdrop-blur-md text-primary px-8 py-4 rounded-full font-label-md text-label-md font-bold hover:bg-white/10 transition-all active:scale-95">
+                    View Demo
+                </button>
+</div>
+<!-- Hero Visual -->
+<div class="mt-20 w-full max-w-5xl relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-transparent blur-2xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+<div class="relative glass-card rounded-2xl overflow-hidden aspect-video border border-white/10">
+<div class="w-full h-full bg-cover bg-center" data-alt="A sophisticated user interface of an AI document analysis dashboard. The UI is minimalist with deep charcoal tones, translucent glass panels, and elegant data visualizations. High-resolution document previews are visible on the left, and a sleek chat interface is on the right. Dark mode lighting with subtle silver accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsEPT4CB3KLcMNmDNr9gp9njpaWTV6j5bKAYSNOF8nrUQfeYKzeiGiRGLyPAmvG_eTLqX4FXAHG_mqeWIJLsgU4mN3FsgffKRBsZCCvv4wX2dWjxWMAvXRkCgTMW7L95ZFBYuJIju3NHY2HUb4DEgm4Zx6wvVjPnf8n2cSwr155dhgbPdpvzwHQnOQGkGKDDf8JvdaSWra4rp7KE68zXLYwYte1lKkk7vdTdXlHRQmsKqv9IUndxJ9OQoYhh-v0uPsE-rNMVE5W4qw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="py-stack-gap-lg px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto mt-20">
+<div class="flex flex-col items-center mb-16 text-center">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Precision-Engineered Intelligence</h2>
+<div class="h-1 w-20 bg-primary/20 rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- AI Chat Card -->
+<div class="glass-card rounded-3xl p-8 flex flex-col items-start gap-stack-gap-md group">
+<div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">AI Chat</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Engage in deep, contextual conversations with your PDFs, spreadsheets, and meeting transcripts using state-of-the-art LLMs.</p>
+<div class="mt-auto pt-4 flex items-center gap-2 text-primary font-label-md text-label-md group-hover:translate-x-2 transition-transform">
+                        Explore Interface <span class="material-symbols-outlined text-[18px]">north_east</span>
+</div>
+</div>
+<!-- Semantic Search Card -->
+<div class="glass-card rounded-3xl p-8 flex flex-col items-start gap-stack-gap-md group">
+<div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">pageview</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Semantic Search</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Find concepts, not just keywords. Our vector-based search engine understands intent and meaning across thousands of documents.</p>
+<div class="mt-auto pt-4 flex items-center gap-2 text-primary font-label-md text-label-md group-hover:translate-x-2 transition-transform">
+                        Indexing Tech <span class="material-symbols-outlined text-[18px]">north_east</span>
+</div>
+</div>
+<!-- Deep Citations Card -->
+<div class="glass-card rounded-3xl p-8 flex flex-col items-start gap-stack-gap-md group">
+<div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Deep Citations</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Never trust a hallucination. Every response is backed by pinpoint accurate citations with one-click navigation to source pages.</p>
+<div class="mt-auto pt-4 flex items-center gap-2 text-primary font-label-md text-label-md group-hover:translate-x-2 transition-transform">
+                        Trust Metrics <span class="material-symbols-outlined text-[18px]">north_east</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto">
+<div class="glass-card rounded-[40px] p-12 md:p-20 flex flex-col md:flex-row justify-between gap-12 border border-white/5 overflow-hidden relative">
+<!-- Background visual inside card -->
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none"></div>
+<div class="flex-1 space-y-6">
+<h2 class="font-headline-lg text-headline-lg text-primary">Built for Professional Rigor</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">Scale your research workflow with a system designed for the most demanding technical environments.</p>
+<div class="flex flex-wrap gap-4">
+<div class="px-4 py-2 rounded-full border border-white/10 text-label-md font-label-md bg-white/5">SOC2 Compliant</div>
+<div class="px-4 py-2 rounded-full border border-white/10 text-label-md font-label-md bg-white/5">End-to-End Encrypted</div>
+<div class="px-4 py-2 rounded-full border border-white/10 text-label-md font-label-md bg-white/5">No Training on User Data</div>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-8 relative">
+<div class="flex flex-col">
+<span class="text-[48px] font-bold text-primary tracking-tighter">10k+</span>
+<span class="font-label-md text-on-surface-variant uppercase tracking-widest text-[12px]">Files Analyzed</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[48px] font-bold text-primary tracking-tighter">99.9%</span>
+<span class="font-label-md text-on-surface-variant uppercase tracking-widest text-[12px]">Accuracy Rate</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[48px] font-bold text-primary tracking-tighter">0.8s</span>
+<span class="font-label-md text-on-surface-variant uppercase tracking-widest text-[12px]">Search Latency</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[48px] font-bold text-primary tracking-tighter">24/7</span>
+<span class="font-label-md text-on-surface-variant uppercase tracking-widest text-[12px]">Expert Support</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 flex flex-col items-center text-center px-margin-mobile">
+<h2 class="font-display-xl text-display-xl-mobile md:text-headline-lg text-primary mb-8">Ready to evolve your workspace?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-12">Join over 200 companies turning their static archives into active intelligence engines.</p>
+<button class="bg-primary text-on-primary px-12 py-5 rounded-full font-label-md text-label-md font-bold hover:scale-105 transition-transform btn-glow">
+                Get Started for Free
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest py-20 px-margin-desktop border-t border-white/5">
+<div class="max-w-container-max-width mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
+<div class="col-span-2 md:col-span-1">
+<h4 class="font-headline-md text-headline-md font-bold text-primary mb-6">AskYourDocs</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">The future of technical document analysis. Powered by proprietary RAG architectures.</p>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-primary cursor-pointer hover:bg-white/10 transition-colors">𝕏</div>
+<div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-primary cursor-pointer hover:bg-white/10 transition-colors">in</div>
+</div>
+</div>
+<div>
+<h5 class="font-label-md text-label-md font-bold text-primary mb-6 uppercase tracking-widest">Platform</h5>
+<ul class="space-y-4 font-body-md text-body-md text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">Pricing</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Features</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Documentation</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">API Status</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md font-bold text-primary mb-6 uppercase tracking-widest">Company</h5>
+<ul class="space-y-4 font-body-md text-body-md text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Blog</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md font-bold text-primary mb-6 uppercase tracking-widest">Newsletter</h5>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Get the latest AI insights delivered.</p>
+<div class="flex bg-white/5 rounded-lg overflow-hidden border border-white/10">
+<input class="bg-transparent border-none outline-none p-3 w-full font-label-md text-label-md text-on-surface focus:ring-0" placeholder="Email" type="email"/>
+<button class="bg-primary text-on-primary px-4 font-bold">→</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max-width mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-label-md text-on-surface-variant text-[12px]">© 2024 AskYourDocs AI. All rights reserved.</span>
+<div class="flex gap-8">
+<a class="font-label-md text-on-surface-variant text-[12px] hover:text-primary" href="#">Terms</a>
+<a class="font-label-md text-on-surface-variant text-[12px] hover:text-primary" href="#">Security</a>
+<a class="font-label-md text-on-surface-variant text-[12px] hover:text-primary" href="#">Sitemap</a>
+</div>
+</div>
+</footer>
+<script>
+        // Subtle mouse tracking glow effect for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                // Add an inline shadow based on mouse position
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 50;
+                const rotateY = (centerX - x) / 50;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotate</script></body></html>

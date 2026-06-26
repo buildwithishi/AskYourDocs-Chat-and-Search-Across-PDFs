@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AskYourDocs AI Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;family=Geist:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0b0b0f;
+            color: #e4e1e7;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(31, 31, 35, 0.8);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+        .glow-pulse {
+            animation: pulse 4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.25; }
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#131317",
+                        "surface-dim": "#131317",
+                        "surface-container-highest": "#353439",
+                        "tertiary-fixed": "#d5e3fd",
+                        "inverse-on-surface": "#303034",
+                        "on-primary": "#2f3131",
+                        "on-secondary": "#233143",
+                        "on-error": "#690005",
+                        "background": "#131317",
+                        "surface-container-lowest": "#0e0e12",
+                        "on-primary-fixed": "#1a1c1c",
+                        "on-surface-variant": "#c4c7c8",
+                        "on-tertiary-fixed": "#0d1c2f",
+                        "on-secondary-container": "#a7b6cc",
+                        "on-secondary-fixed": "#0d1c2d",
+                        "inverse-primary": "#5d5f5f",
+                        "on-surface": "#e4e1e7",
+                        "on-tertiary-fixed-variant": "#3a485c",
+                        "secondary-fixed": "#d4e4fa",
+                        "surface-tint": "#c6c6c7",
+                        "tertiary": "#ffffff",
+                        "surface-container": "#1f1f23",
+                        "tertiary-fixed-dim": "#b9c7e0",
+                        "inverse-surface": "#e4e1e7",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#39485a",
+                        "secondary": "#b9c8de",
+                        "on-tertiary-container": "#57657b",
+                        "surface-container-high": "#2a292e",
+                        "error-container": "#93000a",
+                        "surface-variant": "#353439",
+                        "primary-container": "#e2e2e2",
+                        "primary-fixed": "#e2e2e2",
+                        "on-background": "#e4e1e7",
+                        "outline-variant": "#444748",
+                        "secondary-fixed-dim": "#b9c8de",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "outline": "#8e9192",
+                        "on-tertiary": "#233144",
+                        "surface-bright": "#39393d",
+                        "primary": "#ffffff",
+                        "tertiary-container": "#d5e3fd",
+                        "on-secondary-fixed-variant": "#39485a",
+                        "surface-container-low": "#1b1b1f",
+                        "on-primary-fixed-variant": "#454747",
+                        "on-primary-container": "#636565"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "stack-gap-md": "16px",
+                        "stack-gap-lg": "32px",
+                        "container-max-width": "1440px",
+                        "stack-gap-sm": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "display-xl-mobile": ["Plus Jakarta Sans"],
+                        "code-sm": ["Geist"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-xl": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "display-xl-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "code-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-body-md text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Background Shader -->
+<!-- STITCH_SHADER_START:ANIMATION_2 class="fixed inset-0 w-full h-full pointer-events-none opacity-40 z-0" -->
+<div class="fixed inset-0 w-full h-full pointer-events-none opacity-40 z-0" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+// Simplex 2D noise
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 a0 = x - floor(x + 0.5);
+  float m1 = 1.79284291400159 - 0.85373472095314 * ( a0.x*a0.x + h.x*h.x );
+  float m2 = 1.79284291400159 - 0.85373472095314 * ( a0.y*a0.y + h.y*h.y );
+  float m3 = 1.79284291400159 - 0.85373472095314 * ( a0.z*a0.z + h.z*h.z );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Deep charcoal base
+    vec3 color = vec3(0.043, 0.043, 0.059); // #0B0B0F
+    
+    // Liquid light streaks
+    float n1 = snoise(uv * 2.0 + u_time * 0.1);
+    float n2 = snoise(uv * 4.0 - u_time * 0.05);
+    
+    float smoke = smoothstep(0.4, 0.6, n1 * n2 + 0.5);
+    
+    // Soft silver highlights
+    vec3 lightColor = vec3(0.7, 0.7, 0.8);
+    color = mix(color, color + lightColor * 0.05, smoke);
+    
+    // Subtle flowing gradient
+    float g = snoise(uv * 0.5 + u_time * 0.02);
+    color += vec3(0.05, 0.06, 0.08) * g;
+    
+    // Vignette
+    float d = distance(uv, vec2(0.5));
+    color *= smoothstep(1.2, 0.5, d);
+
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+<!-- SideNavBar Integration -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container/95 backdrop-blur-md border-r border-white/5 flex flex-col h-full py-stack-gap-lg px-4 z-50">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-tight">AskYourDocs</h2>
+<p class="text-[10px] font-label-md text-on-surface-variant tracking-widest uppercase">Enterprise AI</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="bg-white/10 text-primary border-r-2 border-primary flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer active:opacity-80 transition-all">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-label-md text-label-md">Workspace</span>
+</div>
+<div class="text-on-surface-variant hover:bg-white/5 flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer active:opacity-80 transition-all">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</div>
+<div class="text-on-surface-variant hover:bg-white/5 flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer active:opacity-80 transition-all">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</div>
+<div class="text-on-surface-variant hover:bg-white/5 flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer active:opacity-80 transition-all">
+<span class="material-symbols-outlined">tune</span>
+<span class="font-label-md text-label-md">Settings</span>
+</div>
+</nav>
+<div class="mt-auto pt-6 border-t border-white/5 space-y-2">
+<button class="w-full py-3 bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 mb-6 hover:brightness-90 transition-all">
+<span class="material-symbols-outlined">add</span>
+                Upload Document
+            </button>
+<div class="text-on-surface-variant hover:bg-white/5 flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Help</span>
+</div>
+<div class="text-on-surface-variant hover:bg-white/5 flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen relative z-10 px-margin-desktop py-10">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-stack-gap-lg">
+<div>
+<h1 class="font-display-xl text-display-xl text-primary mb-2">Overview</h1>
+<p class="font-body-md text-on-surface-variant">Welcome back. Your document intelligence is ready.</p>
+</div>
+<div class="w-96 relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container/50 border border-white/10 rounded-full py-3 pl-12 pr-6 font-body-md focus:outline-none focus:ring-1 focus:ring-primary/30 focus:border-primary/30 backdrop-blur-xl transition-all" placeholder="Search knowledge base..." type="text"/>
+</div>
+</header>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-stack-gap-lg">
+<!-- Total Docs -->
+<div class="glass-card p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 blur-3xl group-hover:bg-primary/20 transition-all"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary/60">description</span>
+<span class="text-[10px] font-label-md bg-white/5 px-2 py-0.5 rounded uppercase tracking-wider text-on-surface-variant">+12%</span>
+</div>
+<div class="space-y-1">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest text-[11px]">Total Docs</p>
+<p class="font-headline-lg text-headline-lg text-primary">1,248</p>
+</div>
+</div>
+<!-- Total Chats -->
+<div class="glass-card p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/10 blur-3xl group-hover:bg-secondary/20 transition-all"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary">forum</span>
+<span class="text-[10px] font-label-md bg-white/5 px-2 py-0.5 rounded uppercase tracking-wider text-on-surface-variant">Live</span>
+</div>
+<div class="space-y-1">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest text-[11px]">Total Chats</p>
+<p class="font-headline-lg text-headline-lg text-primary">852</p>
+</div>
+</div>
+<!-- Storage -->
+<div class="glass-card p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-white/5 blur-3xl group-hover:bg-white/10 transition-all"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-surface-variant">database</span>
+<span class="text-[10px] font-label-md bg-white/5 px-2 py-0.5 rounded uppercase tracking-wider text-on-surface-variant">82% Full</span>
+</div>
+<div class="space-y-1">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest text-[11px]">Storage</p>
+<p class="font-headline-lg text-headline-lg text-primary">4.2 GB</p>
+</div>
+</div>
+<!-- Usage -->
+<div class="glass-card p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 blur-3xl"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<div class="w-2 h-2 rounded-full bg-primary glow-pulse"></div>
+</div>
+<div class="space-y-1">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest text-[11px]">Token Usage</p>
+<p class="font-headline-lg text-headline-lg text-primary">88.4k</p>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Recent Activity List -->
+<section class="lg:col-span-2 space-y-stack-gap-md">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary">Recent Documents</h3>
+<button class="text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors flex items-center gap-2">
+                        View all <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="glass-panel rounded-2xl overflow-hidden">
+<div class="divide-y divide-white/5">
+<!-- Activity Item 1 -->
+<div class="flex items-center gap-6 p-5 hover:bg-white/[0.03] transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center border border-white/5">
+<span class="material-symbols-outlined text-primary-container">article</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md font-semibold text-primary group-hover:text-primary transition-colors">Q4 Financial Forecasts 2024.pdf</h4>
+<p class="text-sm font-label-md text-on-surface-variant">Last chatted: 2 hours ago • 45 pages</p>
+</div>
+<div class="flex gap-2">
+<span class="text-[10px] font-label-md px-2 py-1 bg-white/5 rounded text-on-surface-variant border border-white/5">Finance</span>
+<button class="p-2 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex items-center gap-6 p-5 hover:bg-white/[0.03] transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center border border-white/5">
+<span class="material-symbols-outlined text-secondary">contract</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md font-semibold text-primary group-hover:text-primary transition-colors">Service Agreement - TechCorp.docx</h4>
+<p class="text-sm font-label-md text-on-surface-variant">Last chatted: 5 hours ago • 12 pages</p>
+</div>
+<div class="flex gap-2">
+<span class="text-[10px] font-label-md px-2 py-1 bg-white/5 rounded text-on-surface-variant border border-white/5">Legal</span>
+<button class="p-2 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex items-center gap-6 p-5 hover:bg-white/[0.03] transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center border border-white/5">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">analytics</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md font-semibold text-primary group-hover:text-primary transition-colors">Market Analysis Report May.pdf</h4>
+<p class="text-sm font-label-md text-on-surface-variant">Last chatted: Yesterday • 128 pages</p>
+</div>
+<div class="flex gap-2">
+<span class="text-[10px] font-label-md px-2 py-1 bg-white/5 rounded text-on-surface-variant border border-white/5">Strategy</span>
+<button class="p-2 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="flex items-center gap-6 p-5 hover:bg-white/[0.03] transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center border border-white/5">
+<span class="material-symbols-outlined text-on-primary-fixed-variant" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md font-semibold text-primary group-hover:text-primary transition-colors">Internal Privacy Policy 2.0</h4>
+<p class="text-sm font-label-md text-on-surface-variant">Last chatted: 2 days ago • 8 pages</p>
+</div>
+<div class="flex gap-2">
+<span class="text-[10px] font-label-md px-2 py-1 bg-white/5 rounded text-on-surface-variant border border-white/5">HR</span>
+<button class="p-2 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions & Inspector -->
+<section class="space-y-stack-gap-lg">
+<div class="space-y-4">
+<h3 class="font-headline-md text-headline-md text-primary">Quick Actions</h3>
+<button class="w-full group glass-card hover:bg-primary hover:text-on-primary p-6 rounded-2xl flex items-center gap-4 transition-all duration-300">
+<div class="w-12 h-12 rounded-full bg-primary/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">cloud_upload</span>
+</div>
+<div class="text-left">
+<p class="font-headline-md text-headline-md leading-none mb-1">Upload New</p>
+<p class="text-xs font-label-md opacity-60">Add PDF, Docx, or MD</p>
+</div>
+</button>
+<button class="w-full group glass-card hover:border-primary/50 p-6 rounded-2xl flex items-center gap-4 transition-all duration-300">
+<div class="w-12 h-12 rounded-full bg-white/5 group-hover:bg-white/10 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-primary">chat_bubble</span>
+</div>
+<div class="text-left">
+<p class="font-headline-md text-headline-md leading-none mb-1">New Chat</p>
+<p class="text-xs font-label-md text-on-surface-variant">Start fresh synthesis</p>
+</div>
+</button>
+</div>
+<div class="glass-panel p-6 rounded-2xl border-primary/10">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h4 class="font-label-md text-label-md text-primary uppercase tracking-widest">Workspace Insights</h4>
+</div>
+<div class="space-y-6">
+<div class="relative pt-1">
+<div class="flex mb-2 items-center justify-between">
+<div><span class="text-[11px] font-label-md inline-block py-1 px-2 uppercase rounded-full text-on-surface-variant bg-white/5">Monthly Limit</span></div>
+<div class="text-right"><span class="text-xs font-label-md inline-block text-primary">82%</span></div>
+</div>
+<div class="overflow-hidden h-1 text-xs flex rounded bg-white/5">
+<div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary" style="width:82%"></div>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-white/5 border border-white/5">
+<div class="flex gap-4 items-center">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-sm">lightbulb</span>
+</div>
+<p class="text-xs font-body-md text-on-surface-variant">You've saved roughly <span class="text-primary font-bold">14 hours</span> of reading time this week using AI summaries.</p>
+</div>
+</div>
+<div class="w-full h-32 rounded-xl bg-cover bg-center grayscale opacity-50 contrast-125 border border-white/5" data-alt="A stylized, architectural technical drawing of a high-tech data center with clean lines, minimalist geometry, and cool monochromatic silver and deep charcoal tones. Soft neon-white highlights follow the grid lines. The mood is precise, professional, and corporate, emphasizing data integrity and high-performance computing in a futuristic enterprise environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCqrolOrp_VMcztfmoRBmJWsXf_eVvwapdlqUmG3kTvjXZ5l9WkpRXMHk2-yj8k18hR6xwcFmXdfcKdauKh3rhsl6B-JgppndcdGaEL8UkgauBNOkRD4TgxM91s3ZSW1rlH4gZASZ0RCVj-tC-ux0Gcvc8NA86czXypkiJdFw6UFMVhYYibtL-uc9vomLkbLYxQ9CzYLBd16aCZH_RDbpHjfKN7EGrVolSRoA5RgTgYxjH5fsLznaLOb31XhYvgswjBFwmfn8fcVWN')"></div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>
